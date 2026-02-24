@@ -304,7 +304,7 @@ def main():
                     textposition='outside',
                     textinfo='value+percent',
                     texttemplate='%{value:,.1f}K<br>(%{percent:.2f}%)',
-                    outsidetextfont=dict(size=9),
+                    outsidetextfont=dict(size=9, color="#ffffff"),
                 )
 
                 fig_donut.update_layout(
@@ -316,8 +316,8 @@ def main():
                     legend=dict(
                         orientation="v",
                         x=0.72, y=0.5,
-                        font=dict(size=10),
-                        title=dict(text="payment_meth...", font=dict(size=9)),
+                        font=dict(size=10, color="#ffffff"),
+                        title=dict(text="payment_meth...", font=dict(size=9, color="#ffffff")),
                     ),
                     font=dict(family="Inter, sans-serif", size=10),
                 )
@@ -352,18 +352,19 @@ def main():
                     margin=dict(t=5, b=40, l=10, r=20),
                     height=300,
                     xaxis=dict(
-                        title="Sum of po_amount",
+                        title=dict(text="Sum of po_amount", font=dict(color="#ffffff")),
                         tickformat=".0s",
+                        tickfont=dict(color="#ffffff"),
                         showgrid=True,
                         gridcolor="#f0eaf8",
                         zeroline=False,
                     ),
                     yaxis=dict(
-                        title="vendor_name",
-                        tickfont=dict(size=9),
+                        title=dict(text="vendor_name", font=dict(color="#ffffff")),
+                        tickfont=dict(size=9, color="#ffffff"),
                         autorange=True,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10),
+                    font=dict(family="Inter, sans-serif", size=10, color="#ffffff"),
                 )
                 st.plotly_chart(fig_hbar, use_container_width=True, config={"displayModeBar": False})
             else:
@@ -393,17 +394,19 @@ def main():
                     margin=dict(t=5, b=40, l=10, r=10),
                     height=300,
                     xaxis=dict(
-                        title="approval_status",
+                        title=dict(text="approval_status", font=dict(color="#ffffff")),
+                        tickfont=dict(color="#ffffff"),
                         showgrid=False,
                         zeroline=False,
                     ),
                     yaxis=dict(
-                        title="Count of invoice_id",
+                        title=dict(text="Count of invoice_id", font=dict(color="#ffffff")),
+                        tickfont=dict(color="#ffffff"),
                         showgrid=True,
                         gridcolor="#f0eaf8",
                         zeroline=False,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10),
+                    font=dict(family="Inter, sans-serif", size=10, color="#ffffff"),
                     showlegend=False,
                 )
                 st.plotly_chart(fig_col, use_container_width=True, config={"displayModeBar": False})
@@ -417,3 +420,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
