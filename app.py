@@ -201,7 +201,7 @@ def fmt_k(value):
     return f"{v:.2f}"
 
 # Plot settings shared across all charts
-CHART_BG    = "#ffffff"
+CHART_BG    = "#333333"
 PURPLE_MAIN = "#9370DB"
 PURPLE_PALE = "#c9b8e8"
 BAR_COLOR   = "#b39ddb"
@@ -304,7 +304,7 @@ def main():
                     textposition='outside',
                     textinfo='value+percent',
                     texttemplate='%{value:,.1f}K<br>(%{percent:.2f}%)',
-                    outsidetextfont=dict(size=9, color="#ffffff"),
+                    outsidetextfont=dict(size=9, color="#333333"),
                 )
 
                 fig_donut.update_layout(
@@ -316,8 +316,8 @@ def main():
                     legend=dict(
                         orientation="v",
                         x=0.72, y=0.5,
-                        font=dict(size=10, color="#ffffff"),
-                        title=dict(text="payment_meth...", font=dict(size=9, color="#ffffff")),
+                        font=dict(size=10, color="#333333"),
+                        title=dict(text="payment_meth...", font=dict(size=9, color="#333333")),
                     ),
                     font=dict(family="Inter, sans-serif", size=10),
                 )
@@ -352,19 +352,19 @@ def main():
                     margin=dict(t=5, b=40, l=10, r=20),
                     height=300,
                     xaxis=dict(
-                        title=dict(text="Sum of po_amount", font=dict(color="#ffffff")),
+                        title=dict(text="Sum of po_amount", font=dict(color="#333333")),
                         tickformat=".0s",
-                        tickfont=dict(color="#ffffff"),
+                        tickfont=dict(color="#333333"),
                         showgrid=True,
                         gridcolor="#f0eaf8",
                         zeroline=False,
                     ),
                     yaxis=dict(
-                        title=dict(text="vendor_name", font=dict(color="#ffffff")),
-                        tickfont=dict(size=9, color="#ffffff"),
+                        title=dict(text="vendor_name", font=dict(color="#333333")),
+                        tickfont=dict(size=9, color="#333333"),
                         autorange=True,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10, color="#ffffff"),
+                    font=dict(family="Inter, sans-serif", size=10, color="#333333"),
                 )
                 st.plotly_chart(fig_hbar, use_container_width=True, config={"displayModeBar": False})
             else:
@@ -394,19 +394,19 @@ def main():
                     margin=dict(t=5, b=40, l=10, r=10),
                     height=300,
                     xaxis=dict(
-                        title=dict(text="approval_status", font=dict(color="#ffffff")),
-                        tickfont=dict(color="#ffffff"),
+                        title=dict(text="approval_status", font=dict(color="#333333")),
+                        tickfont=dict(color="#333333"),
                         showgrid=False,
                         zeroline=False,
                     ),
                     yaxis=dict(
-                        title=dict(text="Count of invoice_id", font=dict(color="#ffffff")),
-                        tickfont=dict(color="#ffffff"),
+                        title=dict(text="Count of invoice_id", font=dict(color="#333333")),
+                        tickfont=dict(color="#333333"),
                         showgrid=True,
                         gridcolor="#f0eaf8",
                         zeroline=False,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10, color="#ffffff"),
+                    font=dict(family="Inter, sans-serif", size=10, color="#333333"),
                     showlegend=False,
                 )
                 st.plotly_chart(fig_col, use_container_width=True, config={"displayModeBar": False})
@@ -420,4 +420,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
