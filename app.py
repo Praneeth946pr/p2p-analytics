@@ -320,7 +320,7 @@ def main():
                     legend=dict(
                         orientation="v",
                         x=0.75, y=0.5,
-                        font=dict(size=10, color="#222222", family="Inter, sans-serif"),
+                        font=dict(size=10, color="#ffffff", family="Inter, sans-serif"),
                         title=dict(text="payment_meth...", font=dict(size=9, color="#444444")),
                         itemsizing="constant",
                     ),
