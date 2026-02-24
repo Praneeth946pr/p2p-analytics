@@ -286,40 +286,45 @@ def main():
             st.markdown('<div class="chart-title">Payment Method Breakdown</div>', unsafe_allow_html=True)
 
             if not data['payment_methods'].empty:
-                df_pm = data['payment_methods']
+                df_pm = data['payment_methods'].copy()
                 total_pm = df_pm['amount'].sum()
                 df_pm['pct'] = df_pm['amount'] / total_pm * 100
+                # Format labels: "8.4K\n(7.26%)"
+                df_pm['label'] = df_pm.apply(
+                    lambda r: f"{r['amount']/1000:.1f}K<br>({r['pct']:.2f}%)", axis=1
+                )
 
                 fig_donut = go.Figure(go.Pie(
                     labels=df_pm['payment_method'],
                     values=df_pm['amount'],
-                    hole=0.45,
+                    hole=0.42,
+                    marker=dict(colors=["#1e3a8a", "#1d6ae5", "#e07b39"]),
+                    textposition='outside',
                     textinfo='none',
-                    marker=dict(colors=["#1565c0", "#1e90ff", "#e07b39"]),
-                    legendgroup="pm",
+                    customdata=df_pm[['amount', 'pct']].values,
+                    texttemplate='%{customdata[0]:,.1f}K<br>(%{customdata[1]:.2f}%)',
                 ))
 
-                # Outside labels like the reference image
                 fig_donut.update_traces(
-                    textposition='outside',
-                    textinfo='value+percent',
-                    texttemplate='%{value:,.1f}K<br>(%{percent:.2f}%)',
-                    outsidetextfont=dict(size=9, color="#333333"),
+                    outsidetextfont=dict(size=9, color="#222222", family="Inter, sans-serif"),
+                    textinfo='text',
+                    text=df_pm['label'],
                 )
 
                 fig_donut.update_layout(
                     paper_bgcolor=CHART_BG,
                     plot_bgcolor=CHART_BG,
-                    margin=dict(t=5, b=5, l=60, r=60),
+                    margin=dict(t=10, b=10, l=55, r=85),
                     height=300,
                     showlegend=True,
                     legend=dict(
                         orientation="v",
-                        x=0.72, y=0.5,
-                        font=dict(size=10, color="#333333"),
-                        title=dict(text="payment_meth...", font=dict(size=9, color="#333333")),
+                        x=0.75, y=0.5,
+                        font=dict(size=10, color="#222222", family="Inter, sans-serif"),
+                        title=dict(text="payment_meth...", font=dict(size=9, color="#444444")),
+                        itemsizing="constant",
                     ),
-                    font=dict(family="Inter, sans-serif", size=10),
+                    font=dict(family="Inter, sans-serif", size=10, color="#222222"),
                 )
                 st.plotly_chart(fig_donut, use_container_width=True, config={"displayModeBar": False})
             else:
@@ -338,33 +343,32 @@ def main():
                     x=df_vs['total_spend'],
                     y=df_vs['vendor_name'],
                     orientation='h',
-                    marker=dict(
-                        color=df_vs['total_spend'],
-                        colorscale=[[0, "#c9b8e8"], [1, "#7b2ff7"]],
-                        showscale=False,
-                    ),
-                    text=None,
+                    marker=dict(color="#b39ddb"),  # uniform lavender purple
+                    text=df_vs['total_spend'].apply(lambda v: f"{v/1000:.0f}K"),
+                    textposition='outside',
+                    textfont=dict(size=9, color="#222222"),
                 ))
 
                 fig_hbar.update_layout(
                     paper_bgcolor=CHART_BG,
                     plot_bgcolor=CHART_BG,
-                    margin=dict(t=5, b=40, l=10, r=20),
-                    height=300,
+                    margin=dict(t=5, b=45, l=10, r=40),
+                    height=310,
                     xaxis=dict(
-                        title=dict(text="Sum of po_amount", font=dict(color="#333333")),
+                        title=dict(text="Sum of po_amount", font=dict(size=11, color="#222222")),
                         tickformat=".0s",
-                        tickfont=dict(color="#333333"),
+                        tickfont=dict(size=10, color="#222222"),
                         showgrid=True,
-                        gridcolor="#f0eaf8",
-                        zeroline=False,
+                        gridcolor="#e8e0f0",
+                        zeroline=True,
+                        zerolinecolor="#ccc",
                     ),
                     yaxis=dict(
-                        title=dict(text="vendor_name", font=dict(color="#333333")),
-                        tickfont=dict(size=9, color="#333333"),
+                        title=dict(text="vendor_name", font=dict(size=11, color="#222222")),
+                        tickfont=dict(size=9, color="#222222"),
                         autorange=True,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10, color="#333333"),
+                    font=dict(family="Inter, sans-serif", size=10, color="#222222"),
                 )
                 st.plotly_chart(fig_hbar, use_container_width=True, config={"displayModeBar": False})
             else:
@@ -382,31 +386,33 @@ def main():
                 fig_col = go.Figure(go.Bar(
                     x=df_is['approval_status'],
                     y=df_is['count'],
-                    marker=dict(color="#9b8ec4"),
+                    marker=dict(color="#b39ddb"),  # uniform lavender purple
                     text=df_is['count'],
                     textposition='outside',
-                    textfont=dict(size=10),
+                    textfont=dict(size=11, color="#222222"),
                 ))
 
                 fig_col.update_layout(
                     paper_bgcolor=CHART_BG,
                     plot_bgcolor=CHART_BG,
-                    margin=dict(t=5, b=40, l=10, r=10),
-                    height=300,
+                    margin=dict(t=25, b=45, l=10, r=10),
+                    height=310,
                     xaxis=dict(
-                        title=dict(text="approval_status", font=dict(color="#333333")),
-                        tickfont=dict(color="#333333"),
+                        title=dict(text="approval_status", font=dict(size=11, color="#222222")),
+                        tickfont=dict(size=11, color="#222222"),
                         showgrid=False,
                         zeroline=False,
                     ),
                     yaxis=dict(
-                        title=dict(text="Count of invoice_id", font=dict(color="#333333")),
-                        tickfont=dict(color="#333333"),
+                        title=dict(text="Count of invoice_id", font=dict(size=11, color="#222222")),
+                        tickfont=dict(size=10, color="#222222"),
                         showgrid=True,
-                        gridcolor="#f0eaf8",
-                        zeroline=False,
+                        gridcolor="#e8e0f0",
+                        zeroline=True,
+                        zerolinecolor="#ccc",
+                        dtick=5,
                     ),
-                    font=dict(family="Inter, sans-serif", size=10, color="#333333"),
+                    font=dict(family="Inter, sans-serif", size=10, color="#222222"),
                     showlegend=False,
                 )
                 st.plotly_chart(fig_col, use_container_width=True, config={"displayModeBar": False})
