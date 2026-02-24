@@ -208,8 +208,8 @@ BAR_COLOR   = "#b39ddb"
 
 def chart_layout(fig, height=320):
     fig.update_layout(
-        paper_bgcolor=CHART_BG,
-        plot_bgcolor=CHART_BG,
+        paper_bgcolor="white",
+        plot_bgcolor="white",
         margin=dict(t=10, b=10, l=10, r=10),
         height=height,
         font=dict(family="Inter, Segoe UI, sans-serif", size=11, color="#333"),
@@ -312,15 +312,15 @@ def main():
                 )
 
                 fig_donut.update_layout(
-                    paper_bgcolor=CHART_BG,
-                    plot_bgcolor=CHART_BG,
+                    paper_bgcolor="white",
+                    plot_bgcolor="white",
                     margin=dict(t=10, b=10, l=55, r=85),
                     height=300,
                     showlegend=True,
                     legend=dict(
                         orientation="v",
                         x=0.75, y=0.5,
-                        font=dict(size=10, color="#ffffff", family="Inter, sans-serif"),
+                        font=dict(size=10, color="#222222", family="Inter, sans-serif"),
                         title=dict(text="payment_meth...", font=dict(size=9, color="#444444")),
                         itemsizing="constant",
                     ),
@@ -350,8 +350,8 @@ def main():
                 ))
 
                 fig_hbar.update_layout(
-                    paper_bgcolor=CHART_BG,
-                    plot_bgcolor=CHART_BG,
+                    paper_bgcolor="white",
+                    plot_bgcolor="white",
                     margin=dict(t=5, b=45, l=10, r=40),
                     height=310,
                     xaxis=dict(
@@ -393,8 +393,8 @@ def main():
                 ))
 
                 fig_col.update_layout(
-                    paper_bgcolor=CHART_BG,
-                    plot_bgcolor=CHART_BG,
+                    paper_bgcolor="white",
+                    plot_bgcolor="white",
                     margin=dict(t=25, b=45, l=10, r=10),
                     height=310,
                     xaxis=dict(
@@ -426,5 +426,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
